@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Бағалау жүйесі</title>
+
+<style>
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background: linear-gradient(135deg, #4facfe, #00f2fe);
+    color: white;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    margin-top: 80px;
+}
+
+h1 {
+    font-size: 32px;
+    margin-bottom: 10px;
+}
+
+h2 {
+    font-weight: normal;
+    margin-bottom: 30px;
+}
+
+.buttons {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+}
+
+.btn {
+    font-size: 60px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.btn:hover {
+    transform: scale(1.3);
+}
+
+.result {
+    margin-top: 40px;
+    font-size: 22px;
+}
+
+.bar {
+    width: 60%;
+    margin: 10px auto;
+    background: rgba(255,255,255,0.3);
+    border-radius: 10px;
+}
+
+.fill {
+    height: 25px;
+    border-radius: 10px;
+}
+
+.good { background: #00ff99; }
+.medium { background: #ffd700; }
+.bad { background: #ff4d4d; }
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+    <h1>📊 Сабақты бағалау</h1>
+    <h2>Өзіңе ұнаған смайликті таңда</h2>
+
+    <div class="buttons">
+        <div class="btn" onclick="vote('good')">😊</div>
+        <div class="btn" onclick="vote('medium')">😐</div>
+        <div class="btn" onclick="vote('bad')">😞</div>
+    </div>
+
+    <div class="result">
+        <p>😊 Жақсы: <span id="good">0</span>%</p>
+        <div class="bar"><div id="goodBar" class="fill good" style="width:0%"></div></div>
+
+        <p>😐 Орташа: <span id="medium">0</span>%</p>
+        <div class="bar"><div id="mediumBar" class="fill medium" style="width:0%"></div></div>
+
+        <p>😞 Өкінішті: <span id="bad">0</span>%</p>
+        <div class="bar"><div id="badBar" class="fill bad" style="width:0%"></div></div>
+    </div>
+</div>
+
+<script>
+let votes = {
+    good: 0,
+    medium: 0,
+    bad: 0
+};
+
+function vote(type) {
+    votes[type]++;
+    updateResults();
+}
+
+function updateResults() {
+    let total = votes.good + votes.medium + votes.bad;
+
+    let goodPercent = total ? Math.round((votes.good / total) * 100) : 0;
+    let mediumPercent = total ? Math.round((votes.medium / total) * 100) : 0;
+    let badPercent = total ? Math.round((votes.bad / total) * 100) : 0;
+
+    document.getElementById("good").innerText = goodPercent;
+    document.getElementById("medium").innerText = mediumPercent;
+    document.getElementById("bad").innerText = badPercent;
+
+    document.getElementById("goodBar").style.width = goodPercent + "%";
+    document.getElementById("mediumBar").style.width = mediumPercent + "%";
+    document.getElementById("badBar").style.width = badPercent + "%";
+}
+</script>
+
+</body>
+</html>
